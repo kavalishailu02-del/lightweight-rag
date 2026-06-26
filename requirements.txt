@@ -1,7 +1,7 @@
-streamlit
-PyMuPDF
+pymupdf
+pymupdf4llm
 llama-cpp-python
+rank-bm25
+streamlit
 pandas
 numpy
-markdown
-tqdm

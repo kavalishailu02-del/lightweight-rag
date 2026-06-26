@@ -1,5 +1,12 @@
 venv/
-models/
-extracted/
 __pycache__/
 *.pyc
+*.pyo
+
+models/
+extracted/
+
+.streamlit/
+
+.env
+llama.cpp/

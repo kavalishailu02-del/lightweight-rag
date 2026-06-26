@@ -1,15 +1,20 @@
-from openai import OpenAI
-import os
+from llama_cpp import Llama
 
-client = OpenAI(
-    api_key=os.getenv("OPENAI_API_KEY")
+
+llm = Llama(
+    model_path="models/Qwen2.5-3B-Instruct-Q4_K_M.gguf",
+    n_ctx=4096,
+    n_threads=8,
+    verbose=False
 )
 
-def ask_llm(context, question):
-    prompt = f"""
-You are a helpful document assistant.
 
-Use ONLY the information below to answer.
+def ask_llm(question, context):
+
+    prompt = f"""
+You are a document assistant.
+
+Use ONLY the context below.
 
 Context:
 {context}
@@ -17,16 +22,13 @@ Context:
 Question:
 {question}
 
-If the answer is not present in the context, say:
-"I couldn't find that information in the document."
+Answer:
 """
 
-    response = client.chat.completions.create(
-        model="gpt-4.1-mini",
-        messages=[
-            {"role": "user", "content": prompt}
-        ],
-        temperature=0
+    output = llm(
+        prompt,
+        max_tokens=512,
+        temperature=0.1
     )
 
-    return response.choices[0].message.content
+    return output["choices"][0]["text"]

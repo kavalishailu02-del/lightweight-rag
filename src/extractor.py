@@ -1,19 +1,15 @@
-import fitz
+import pymupdf4llm
 from pathlib import Path
 
+
 def pdf_to_markdown(pdf_file):
-    doc = fitz.open(pdf_file)
+    markdown = pymupdf4llm.to_markdown(pdf_file)
 
-    markdown = ""
+    output = Path("extracted")
+    output.mkdir(exist_ok=True)
 
-    for page in doc:
-        markdown += page.get_text("markdown") + "\n"
+    md_file = output / f"{Path(pdf_file).stem}.md"
 
-    Path("extracted").mkdir(exist_ok=True)
+    md_file.write_text(markdown, encoding="utf-8")
 
-    output_file = f"extracted/{Path(pdf_file).stem}.md"
-
-    with open(output_file, "w", encoding="utf-8") as f:
-        f.write(markdown)
-
-    return output_file
+    return str(md_file)

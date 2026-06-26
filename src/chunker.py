@@ -1,14 +1,8 @@
 import re
 
-def split_sections(text):
-    sections = re.split(
-        r'(?=^#{1,6}\s)',
-        text,
-        flags=re.MULTILINE
-    )
 
-    return [
-        section.strip()
-        for section in sections
-        if section.strip()
-    ]
+def split_sections(markdown_text):
+    pattern = r'(?=^#{1,6}\s)'
+    sections = re.split(pattern, markdown_text, flags=re.MULTILINE)
+
+    return [s.strip() for s in sections if s.strip()]

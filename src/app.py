@@ -5,6 +5,7 @@ from chunker import split_sections
 from retriever import Retriever
 from llm import ask_llm
 
+
 PDF_PATH = "documents/Machine_Learning_Report.pdf"
 
 md_file = pdf_to_markdown(PDF_PATH)
@@ -30,7 +31,10 @@ while True:
         retriever.search(question)
     )
 
-    answer = ask_llm(question, context)
+    answer = ask_llm(
+        question,
+        context
+    )
 
     print("\nAnswer:")
     print(answer)
