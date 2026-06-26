@@ -1,10 +1,7 @@
-
 streamlit
-pymupdf
-pymupdf4llm
+PyMuPDF
 llama-cpp-python
 pandas
 numpy
 markdown
 tqdm
-
