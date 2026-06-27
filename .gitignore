@@ -1,12 +1,9 @@
 venv/
 __pycache__/
 *.pyc
-*.pyo
 
 models/
+documents/
 extracted/
-
-.streamlit/
-
-.env
 llama.cpp/
+.env
