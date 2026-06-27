@@ -1,7 +1,6 @@
-pymupdf
-pymupdf4llm
-llama-cpp-python
-rank-bm25
 streamlit
-pandas
-numpy
+groq
+python-dotenv
+pymupdf4llm
+rank-bm25
+PyMuPDF

@@ -1,20 +1,19 @@
-from llama_cpp import Llama
+import streamlit as st
+from groq import Groq
 
-
-llm = Llama(
-    model_path="models/Qwen2.5-3B-Instruct-Q4_K_M.gguf",
-    n_ctx=4096,
-    n_threads=8,
-    verbose=False
+client = Groq(
+    api_key=st.secrets["GROQ_API_KEY"]
 )
-
 
 def ask_llm(question, context):
 
     prompt = f"""
-You are a document assistant.
+You are a helpful document assistant.
 
-Use ONLY the context below.
+Answer ONLY using the context below.
+
+If the answer is not present in the context,
+say "The answer is not available in the document."
 
 Context:
 {context}
@@ -25,10 +24,16 @@ Question:
 Answer:
 """
 
-    output = llm(
-        prompt,
+    response = client.chat.completions.create(
+        model="llama-3.3-70b-versatile",
+        messages=[
+            {
+                "role": "user",
+                "content": prompt
+            }
+        ],
+        temperature=0.2,
         max_tokens=512,
-        temperature=0.1
     )
 
-    return output["choices"][0]["text"]
+    return response.choices[0].message.content
