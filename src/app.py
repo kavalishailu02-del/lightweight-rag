@@ -10,9 +10,7 @@ PDF_PATH = "documents/Machine_Learning_Report.pdf"
 
 md_file = pdf_to_markdown(PDF_PATH)
 
-markdown = Path(md_file).read_text(
-    encoding="utf-8"
-)
+markdown = Path(md_file).read_text(encoding="utf-8")
 
 sections = split_sections(markdown)
 
@@ -27,14 +25,9 @@ while True:
     if question.lower() == "exit":
         break
 
-    context = "\n\n".join(
-        retriever.search(question)
-    )
+    context = "\n\n".join(retriever.search(question))
 
-    answer = ask_llm(
-        question,
-        context
-    )
+    answer = ask_llm(question, context)
 
     print("\nAnswer:")
     print(answer)

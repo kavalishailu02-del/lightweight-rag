@@ -14,9 +14,6 @@ class Retriever:
 
         scores = self.bm25.get_scores(query.lower().split())
 
-        ranked = sorted(
-            zip(scores, self.sections),
-            reverse=True
-        )
+        ranked = sorted(zip(scores, self.sections), reverse=True)
 
         return [chunk for _, chunk in ranked[:top_k]]

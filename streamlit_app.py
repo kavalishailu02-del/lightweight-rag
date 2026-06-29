@@ -6,21 +6,14 @@ from src.chunker import split_sections
 from src.retriever import Retriever
 from src.llm import ask_llm
 
-st.set_page_config(
-    page_title="📄 Local Document Q&A",
-    page_icon="📄",
-    layout="wide"
-)
+st.set_page_config(page_title="📄 Local Document Q&A", page_icon="📄", layout="wide")
 
 st.title("📄 Local Document Q&A")
 st.write("Upload any PDF and ask questions.")
 
 Path("documents").mkdir(exist_ok=True)
 
-uploaded_file = st.file_uploader(
-    "Upload PDF",
-    type=["pdf"]
-)
+uploaded_file = st.file_uploader("Upload PDF", type=["pdf"])
 
 if uploaded_file:
 
@@ -33,9 +26,7 @@ if uploaded_file:
 
         md_file = pdf_to_markdown(pdf_path)
 
-        markdown = Path(md_file).read_text(
-            encoding="utf-8"
-        )
+        markdown = Path(md_file).read_text(encoding="utf-8")
 
         sections = split_sections(markdown)
 
@@ -43,22 +34,15 @@ if uploaded_file:
 
     st.success("PDF processed successfully!")
 
-    question = st.text_input(
-        "Ask your question"
-    )
+    question = st.text_input("Ask your question")
 
     if question:
 
         with st.spinner("Thinking..."):
 
-            context = "\n\n".join(
-                retriever.search(question)
-            )
+            context = "\n\n".join(retriever.search(question))
 
-            answer = ask_llm(
-                question,
-                context
-            )
+            answer = ask_llm(question, context)
 
         st.subheader("Answer")
 
